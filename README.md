@@ -1,4 +1,5 @@
-A thin and tiny utility to run async functions in series. This utility is similiar to [async](http://http://caolan.github.io/async/)'s `series`, `seq`, `compose`.
+A thin and tiny utility to run async functions in series. 
+This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`.
 
 ### new AsyncFlow({Object}) options:
 
