@@ -1,0 +1,19 @@
+{
+  "name": "util-asyncflow",
+  "version": "0.1.0",
+  "description": "A tiny utility to run the async functions in series",
+  "author": "Ben P.P. Tung",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benpptung/util-asyncflow.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "colors": "^1.1.2",
+    "mkdirp": "^0.5.1"
+  }
+}
