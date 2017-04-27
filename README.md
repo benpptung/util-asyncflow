@@ -34,7 +34,7 @@ All results by async functions in sequence
 /**
  * Modules
  */
-const Async = require('..');
+const Async = require('util-asyncflow');
 const fs = require('fs');
 const join = require('path').join;
 const mkdirp = require('mkdirp');
