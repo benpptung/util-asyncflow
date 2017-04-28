@@ -3,9 +3,9 @@ This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `
 
 ### new AsyncFlow({Object}) options:
 
-- prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function like [`example #1`](#Example-1)
+- prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function like [`example 1`](Example-1)
 
-- last: {Boolean}, default to true, if `false`, will return all results in final callback like [`example #2`](#ex2)
+- last: {Boolean}, default to true, if `false`, will return all results in final callback like [`example 2`](#ex2)
 
 ```
 const AsyncFlow = require('util-asyncflow');
@@ -27,7 +27,7 @@ Start this async functions flow with a final callback. This callback will reciev
 
 ### property: results {Array}
 
-All results are stored in `async.results` one by one. See [`example #3`](#ex3) how to use it.
+All results are stored in `async.results` one by one. See [`example 3`](#ex3) how to use it.
 
 
 # Example 1 
