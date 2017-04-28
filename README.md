@@ -5,6 +5,8 @@ This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `
 
 - prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function
 
+- last: {Boolean}, default to true, if `false`, will return all results in final callback
+
 ```
 const AsyncFlow = require('util-asyncflow');
 
@@ -28,7 +30,7 @@ Start this async functions flow with a final callback. This callback will reciev
 All results by async functions in sequence
 
 
-# Example
+# Example #1
 ```
 'use strict'
 
@@ -68,3 +70,26 @@ async.run((err, res)=> {
   console.log(inspect(async.results, {colors: true}));
 
 });
+```
+
+# Example 2 - return all results
+```
+const Async = require('util-asyncflow');
+
+function resAfter2Sec(x, cb) {
+  setTimeout(_=> cb(null, x), 2000);
+}
+
+function add2(x, cb) {
+
+  Async({last: false})
+    .task(resAfter2Sec, 20).task(resAfter2Sec, 30)
+    .run( (err, a, b)=> {
+      cb(null, x + a[0] + b[0]);
+    });
+}
+
+add2(10, (err, res)=> {
+  console.log(res);
+});
+```
