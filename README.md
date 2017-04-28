@@ -74,7 +74,7 @@ async.run((err, res)=> {
 
 # Example 2 - return all results
 ```
-// similar to https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+// similar to add2() in https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
 const Async = require('util-asyncflow');
 
