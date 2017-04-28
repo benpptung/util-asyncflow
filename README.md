@@ -60,7 +60,7 @@ async.task(function(cb) {
     .end('hello world');
 
 });
-async.wait(fs.rename, join(dest, 'hello.txt'));
+async.wait(fs.rename, join(dest, 'hello.txt')); // <--- prepend previous result as argument
 
 async.run((err, res)=> {
 
@@ -74,6 +74,8 @@ async.run((err, res)=> {
 
 # Example 2 - return all results
 ```
+// similar to https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+
 const Async = require('util-asyncflow');
 
 function resAfter2Sec(x, cb) {
