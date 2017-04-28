@@ -14,7 +14,7 @@ const colors = require('colors');
  */
 
 var dirs = ['dir1', 'dir2', 'dir3'];
-var async = new Async({last: false});
+var async = new Async();
 
 // forEach dirs
 dirs.map(dir=> join(__dirname, dir))
