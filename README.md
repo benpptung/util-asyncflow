@@ -3,7 +3,7 @@ This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `
 
 ### new AsyncFlow({Object}) options:
 
-- prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function like [`example #1`](#ex1)
+- prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function like [`example #1`](#Example1)
 
 - last: {Boolean}, default to true, if `false`, will return all results in final callback like [`example #2`](#ex2)
 
@@ -29,8 +29,11 @@ Start this async functions flow with a final callback. This callback will reciev
 
 All results are stored in `async.results` one by one. See [`example #3`](#ex3) how to use it.
 
-<a name="ex1" />
-# Example #1 - prepend previous function result to next function arguments
+
+# Example 1 
+
+prepend previous function result to next function arguments
+
 ```
 'use strict'
 
@@ -72,8 +75,10 @@ async.run((err, res)=> {
 });
 ```
 
-<a name="ex2" />
-# Example 2 - return all results
+# Example 2
+
+return all results
+
 ```
 // similar to add2() in https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
@@ -96,8 +101,11 @@ add2(10, (err, res)=> {
 });
 ```
 
-<a name="ex3" />
-# Example 3 - Handle collection and dynamically add new async function
+
+# Example 3
+
+
+Handle collection and dynamically add new async function
 
 ```
 'use strict';
