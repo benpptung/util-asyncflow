@@ -14,7 +14,7 @@ const colors = require('colors');
  */
 
 var dirs = ['dir1', 'dir2', 'dir3'];
-var async = new Async();
+var async = new Async({output: 'collection'});
 
 // forEach dirs
 dirs.map(dir=> join(__dirname, dir))
@@ -22,22 +22,16 @@ dirs.map(dir=> join(__dirname, dir))
     async.task(fs.readdir, dir)
   });
 
-// concat files found
-async.task(function (next) {
-
-  var files = async.results.map(res=> res[0]).reduce((pre, cur)=> pre.concat(cur), []);
-  next(null, files);
-});
-
 // write `hello` into new files
-async.wait(function(files, next) {
+async.run(function(err, results) {
+
+  // manually concat the results
+  var files = results.reduce((pre, cur)=> pre.concat(cur), []);
 
   // another forEach usage case
   files.forEach(file=> {
     async.task(fs.writeFile, join(__dirname, file), 'hello')
   });
 
-  next()
+  async.run();
 });
-
-async.run();

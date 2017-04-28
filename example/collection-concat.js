@@ -14,22 +14,16 @@ const colors = require('colors');
  */
 
 var dirs = ['dir1', 'dir2', 'dir3'];
-var async = new Async({last: false});
+var async = new Async({output: 'collection'});
 
 dirs.map(dir=> join(__dirname, dir))
   .forEach(dir=> {
     async.task(fs.readdir, dir)
   });
 
-async.run(function (err) {
+async.run(function (err, results) {
   if (err) return console.error(inspect(err, {colors: true}));
 
-  var files = Array.prototype.slice.call(arguments, 1)
-    .reduce((pre, cur)=> pre.concat(cur), []);
-
-  console.log(files);
-
-  console.log(` >>> show async.results`.cyan);
-  console.log(inspect(async.results));
-
+  // manually concat the results
+  console.log(results.reduce((pre, cur)=> pre.concat(cur), []))
 });

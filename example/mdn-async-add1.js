@@ -15,7 +15,7 @@ function resAfter2Sec(x, cb) {
 
 function add1(x, cb) {
 
-  async({last: false})
+  async({output: 'rest'})
     .task(resAfter2Sec, 20).run(done)
     .task(resAfter2Sec, 30).run(done);
 
@@ -25,6 +25,8 @@ function add1(x, cb) {
   }
 }
 
+console.time('add1');
 add1(10, (err, res)=> {
   console.log(res);
+  console.timeEnd('add1');
 });

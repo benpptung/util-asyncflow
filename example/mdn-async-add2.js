@@ -13,11 +13,13 @@ function resAfter2Sec(x, cb) {
 
 function add2(x, cb) {
 
-  Async({last: false}).task(resAfter2Sec, 20).task(resAfter2Sec, 30)
+  Async({output: 'rest'}).task(resAfter2Sec, 20).task(resAfter2Sec, 30)
     .run( (err, a, b)=> cb(null, x + a + b) );
 }
 
+console.time('add2');
 add2(10, (err, res)=> {
   console.log(res);
+  console.timeEnd('add2');
 });
 
