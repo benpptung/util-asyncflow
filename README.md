@@ -30,7 +30,7 @@ Start this async functions flow with a final callback. This callback will reciev
 All results are stored in `async.results` one by one. See [`example 3`](#ex3) how to use it.
 
 
-# Example 1
+(#Example-1)
 
 prepend previous function result to next function arguments
 
