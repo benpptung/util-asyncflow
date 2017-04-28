@@ -30,7 +30,7 @@ Start this async functions flow with a final callback. This callback will reciev
 All results are stored in `async.results` one by one. See [`example 3`](#ex3) how to use it.
 
 
-#Example 1
+# Example 1
 
 prepend previous function result to next function arguments
 
@@ -75,7 +75,7 @@ async.run((err, res)=> {
 });
 ```
 
-#Example 2
+# Example 2
 
 return all results
 
@@ -102,7 +102,7 @@ add2(10, (err, res)=> {
 ```
 
 
-#Example 3
+# Example 3
 
 
 Handle collection and dynamically add new async function
