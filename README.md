@@ -28,7 +28,7 @@ Start this async functions flow with a `final callback`. This callback will reci
 
 ### property: results {Array}
 
-All results are stored in `async.results` one by one. See [`example 3`](#example-3) how to use it.
+All original results are stored in `async.results` in order.
 
 
 # Example 1
