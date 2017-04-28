@@ -3,9 +3,11 @@
 /**
  * add1() @
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+ *
+ * use util-asyncflow to run parallel async functions
  */
 
-const Async = require('..');
+const async = require('..');
 
 function resAfter2Sec(x, cb) {
   setTimeout(_=> cb(null, x), 2000);
@@ -13,15 +15,13 @@ function resAfter2Sec(x, cb) {
 
 function add1(x, cb) {
 
-  var async = new Async();
-  async.task(resAfter2Sec, 20).run(done);
-  async.task(resAfter2Sec, 30).run(done);
+  async({last: false})
+    .task(resAfter2Sec, 20).run(done)
+    .task(resAfter2Sec, 30).run(done);
 
-  function done() {
-    let results = async.results;
-    if (results.length == 2) {
-      cb(null, x + results[0][0] + results[1][0]);
-    }
+  function done(err, a, b) {
+    let res = x + a + b;
+    if (res) cb(null, res);
   }
 }
 
