@@ -27,8 +27,9 @@ var async = Async({output: 'collection'});
   .task(asynfn2, 20)
   .task(function(next) {
 
-    arr.forEach(x=> async.task(asynfn1, x));
-    async.run(finish); // called before previous final callback, coz next is NOT called yet
+    var aflow = new Async();
+    arr.forEach(x=> aflow.task(asynfn1, x));
+    aflow.run(finish); //run another async flow inside an async function
     next()
   })
   .task(asynfn2, 100)
