@@ -2,6 +2,7 @@
 
 const Async = require('..');
 const inspect = require('util').inspect;
+const colors = require('colors');
 
 var asynfn1 = function(x, next) {
 
@@ -27,10 +28,21 @@ var async = Async({output: 'collection'});
   .task(function(next) {
 
     arr.forEach(x=> async.task(asynfn1, x));
-    next();
+    async.run(finish); // called before previous final callback, coz next is NOT called yet
+    next()
   })
   .task(asynfn2, 100)
   .run((err, collection)=> {
-    if (err) return console.error(inspect(err));
-    console.log(collection);
-  });
+      console.log('------ 1st final callback start');
+      if (err) return console.error(inspect(err));
+      console.log(collection);
+      console.log('------ 1st final callback end\n');
+    });
+
+function finish(err, collection) {
+
+  console.log('\n------ another final callback start');
+  if (err) return console.error(inspect(err));
+  console.log(collection);
+  console.log('------ another final callback end\n')
+}
