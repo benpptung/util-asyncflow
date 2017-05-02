@@ -6,6 +6,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 #### Why the fork?
 - This code is simpler, and has no dependency.
 - Less methods to manage async control flows. 
+- More flexible to manage arguments and results during async flow.
 
 ### new AsyncFlow({Object}) options:
 
