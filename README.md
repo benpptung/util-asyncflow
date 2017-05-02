@@ -16,9 +16,9 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
   -`last`: callback last function result
   
-  -`collection`: see [`example 4`](#example-4)
+  -`collection`: Receive all task results in a collection style, so it is easy to handle collection via `forEach`, `map`...   See [`example 4`](#example-4)
   
-  -`rest`: see [`example 2`](#example-2)
+  -`rest`: Receive all task results too, but in a `rest` style.  see [`example 2`](#example-2)
 
 
 ### .task(fn, [arg1,[arg2...)
@@ -27,11 +27,11 @@ Add an async function as a task following necessary arguments.
 
 ### .wait(fn, [art1, [art2...) 
 
-Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq` in `async`.
+Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`.
 
-### .run(callback)
+### .run([callback])
 
-Start this async functions flow with a `final callback`. This callback will recieve the last async function callback result if any. 
+Start this async functions flow with an optional `final callback`. This callback will recieve results based on `output` option. 
 
 ### property: results {Array}
 
