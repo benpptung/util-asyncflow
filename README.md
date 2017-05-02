@@ -1,6 +1,12 @@
 A thin and tiny utility to run async functions in series. 
 This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`.
 
+See also [util-retry](https://www.npmjs.com/package/util-retry) - an async function retry flow utility
+
+#### Why the fork?
+- This code is simpler, and has no dependency.
+- Less methods to manage async control flows. 
+
 ### new AsyncFlow({Object}) options:
 
 - prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function like [`example 1`](#example-1)
