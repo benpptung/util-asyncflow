@@ -8,6 +8,12 @@
     "type": "git",
     "url": "https://github.com/benpptung/util-asyncflow.git"
   },
+  "keywords": [
+    "async",
+    "callback",
+    "module",
+    "utility"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
