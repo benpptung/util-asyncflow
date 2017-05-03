@@ -1,6 +1,6 @@
 {
   "name": "util-asyncflow",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A tiny utility to run the async functions in series",
   "author": "Ben P.P. Tung",
   "license": "MIT",
