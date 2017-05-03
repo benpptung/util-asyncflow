@@ -1,16 +1,17 @@
 A thin and tiny utility to run async functions in series. 
-This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`.
+This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section.
 
 See also [util-retry](https://www.npmjs.com/package/util-retry) - an async function retry flow utility
 
-#### Why the fork?
-- This code is simpler, and has no dependency.
+#### Why this?
+- This code is simpler, and has `NO` dependency.
 - Less methods to manage async control flows. 
 - More flexible to manage arguments and results during async flow.
+- Easy to connect multiple async flows and less callback hell, see [`example 5`](#example-5)
 
 ### new AsyncFlow({Object}) options:
 
-- prepend: {Boolean}, default to false. Prepend async function result prepend to the arguments in the next async function like [`example 1`](#example-1)
+- prepend: {Boolean}, default to false. Prepend previous async function result to the arguments of next async function like [`example 1`](#example-1)
 
 - output: '`last`|`collection`|`rest`', default to `last`. This option control how all results returned in the `final callback`. 
 
@@ -19,6 +20,8 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
   -`collection`: Receive all task results in a collection style, so it is easy to handle collection via `forEach`, `map`...   See [`example 4`](#example-4)
   
   -`rest`: Receive all task results too, but in a `rest` style.  see [`example 2`](#example-2)
+  
+- halt: {Boolean}, default to false. If halt is true, the whole async flow won't run till .go() is called.
 
 
 ### .task(fn, [arg1,[arg2...)
@@ -32,6 +35,10 @@ Add an async function as a task too, but it will wait for previous task's result
 ### .run([callback])
 
 Start this async functions flow with an optional `final callback`. This callback will recieve results based on `output` option. 
+
+### .go()
+
+Only works when option `halt ==  true`. Method .go() expects an Error as its first argument. When it is called, the halted async flow will start to run, so we can start another async flow without callback hell. See [`example 5`](#example-5)
 
 ### property: results {Array}
 
@@ -196,3 +203,111 @@ async.run((err, results)=> {
   console.log(results);
 });
 ```
+
+# Example 5
+
+From time to time, we have to stop and catch something to decide if go further or not. In that case, to avoid callback hell, we can connect multiple async flows to avoid callback hell using option `halt` and `.go()`.
+
+Call .go() directly
+```
+'use strict';
+
+const Async = require('..');
+const inspect = require('util').inspect;
+
+var pow2inputAfterLong = function(x, next) {
+  setTimeout(_=> {
+    next(null, Math.pow(x, 2));
+  }, 2000)
+};
+
+var mul3inputAfterShort = function(x, next) {
+  setTimeout(_=> {
+    next(null, x * 3);
+  }, 1000)
+};
+
+var aflow1 = new Async();
+var aflow2 = new Async({halt: true});
+
+aflow1.task(mul3inputAfterShort, 2);
+
+aflow1.wait(mul3inputAfterShort);
+
+aflow1.run((err, res)=> {
+
+  if (err) return console.error(inspect(err));
+  console.log('==== end of aflow1');
+  console.log(res); // 18
+
+  if (res > 18) return;
+  aflow2.go(null, res); // send `res` to next async flow
+});
+
+aflow2.wait(mul3inputAfterShort);
+
+aflow2.wait(mul3inputAfterShort);
+
+aflow2.run((err, res)=> {
+  if (err) return console.error(inspect(err));
+
+  console.log();
+  console.log('===== end of aflow2');
+  console.log(res); // 162
+
+});
+```
+
+
+
+Put .go as a callback
+
+```
+'use strict';
+
+const Async = require('..');
+const inspect = require('util').inspect;
+
+var pow2inputAfterLong = function(x, next) {
+  setTimeout(_=> {
+    next(null, Math.pow(x, 2));
+  }, 2000)
+};
+
+var mul3inputAfterShort = function(x, next) {
+  setTimeout(_=> {
+    next(null, x * 3);
+  }, 1000)
+};
+
+var aflow1 = new Async();
+var aflow2 = new Async({halt: true});
+
+aflow1.task(mul3inputAfterShort, 2);
+
+aflow1.wait(mul3inputAfterShort);
+
+aflow1.run((err, res)=> {
+
+  if (err) return console.error(inspect(err));
+  console.log('==== end of aflow1');
+  console.log(res);
+
+  if (res > 18) return;
+  pow2inputAfterLong(res, aflow2.go); // put .go as a callback.
+});
+
+aflow2.wait(mul3inputAfterShort);
+
+aflow2.wait(mul3inputAfterShort);
+
+aflow2.run((err, res)=> {
+  if (err) return console.error(inspect(err));
+
+  console.log();
+  console.log('===== end of aflow2');
+  console.log(res);
+
+});
+```
+
