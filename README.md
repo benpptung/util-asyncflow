@@ -1,14 +1,18 @@
-A thin and tiny utility to run async functions in series. 
+A thin and tiny utility to control async flows. 
 This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section.
 
 See also [util-retry](https://www.npmjs.com/package/util-retry) - an async function retry flow utility
 
 #### Why this?
 - This code is simpler, and has `NO` dependency.
-- Less methods to manage async control flows. 
-- More flexible to manage arguments and results during async flow.
+
+- Few methods to learn for async flows control. 
+
+- Flexible to manage arguments and results during async flow.
+
 - Easy to connect multiple async flows and less callback hell, see [`example 5`](#example-5)
-- Last but not least, don't want to upgrade IDE and environment for new syntax, because some very useful features in old IDE will be gone. e.g. it always happened in Webstorm.
+
+- Last but not least, don't want to upgrade the IDE and environment for new syntax, because some very useful features in old IDE will be gone, or whatever reason.
 
 ### new AsyncFlow({Object}) options:
 
@@ -75,14 +79,14 @@ var src = join(__dirname, 'hello.txt');
 async.task(mkdirp, dirname(dest));
 
 // create source file
-async.task(function(cb) {
+async.task(function(next) {
 
   fs.createWriteStream(src)
     .on('close', _=> {
       console.log(`\n  ${src}`.green + ' was created.'.cyan );
-      cb(null, src)
+      next(null, src)
     })
-    .on('error', err=> cb(err))
+    .on('error', err=> next(err))
     .end('hello world');
 
 });
