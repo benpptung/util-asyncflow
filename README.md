@@ -8,6 +8,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 - Less methods to manage async control flows. 
 - More flexible to manage arguments and results during async flow.
 - Easy to connect multiple async flows and less callback hell, see [`example 5`](#example-5)
+- Last but not least, don't want to upgrade IDE and environment for new syntax, because some very useful features in old IDE will be gone. e.g. it always happened in Webstorm.
 
 ### new AsyncFlow({Object}) options:
 
