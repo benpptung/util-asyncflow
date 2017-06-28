@@ -14,9 +14,9 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Last but not least, don't want to upgrade the IDE and environment for new syntax, because some very useful features in old IDE will be gone, or whatever reason.
 
-### new AsyncFlow({Object}, context) 
+### new AsyncFlow(options, context) 
 
-##### options:
+#### options:
 
 - prepend: {Boolean}, default to false. Prepend previous async function result to the arguments of next async function like [`example 1`](#example-1)
 
@@ -31,7 +31,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 - halt: {Boolean}, default to false. If halt is true, the whole async flow won't run till .go() is called.
 
 
-##### context:
+#### context:
 
 if context exits, all task functions in the flow will be bound to this `context`.
 
