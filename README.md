@@ -35,7 +35,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 if context exits, all task functions in the flow will be bound to this `context`.
 
-example: send context as second option
+<b>example:</b> send context as second option
 
 ```
 
@@ -50,7 +50,7 @@ prototype.method = function(arg, cb) {
 ```
 All `method2`, `method3`, in the above `method` will be bound to `this` automatically.
 
-example: send context as first option
+<b>example:</b> send context as first option with default options.
 
 `var flow = new AsyncFlow(this)`
 
