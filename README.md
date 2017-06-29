@@ -14,7 +14,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Last but not least, don't want to upgrade the IDE and environment for new syntax, because some very useful features in old IDE will be gone, or whatever reason.
 
-### new AsyncFlow(options, context) 
+### new AsyncFlow([options, [context]) 
 
 #### options:
 
@@ -35,23 +35,24 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 if context exits, all task functions in the flow will be bound to this `context`.
 
-example:
+example: send context as second option
 
 ```
 
 prototype.method = function(arg, cb) {
 
   var flow = new AsyncFlow({output: 'rest'}, this);
-
   flow.task(this.method2, arg);
   flow.wait(this.method3)
-  flow.wait(this.method4)
-
   flow.run(cb)
 }
 
 ```
-All `method2`, `method3`, `method4` in the above `method` will be bound to `this` automatically.
+All `method2`, `method3`, in the above `method` will be bound to `this` automatically.
+
+example: send context as first option
+
+`var flow = new AsyncFlow(this)`
 
 
 ### .task(fn, [arg1,[arg2...)
