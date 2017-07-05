@@ -65,7 +65,7 @@ Add an async function as a task too, but it will wait for previous task's result
 
 ### .ctx(thisArg)
 
-update thisArg during this async calls flow
+update thisArg during this async calls flow. `null` is acceptable.
 
 ```
 var flow = new Asyncflow();
