@@ -1,8 +1,9 @@
 {
   "name": "util-asyncflow",
   "description": "A tiny utility to run the async functions in series",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": "Ben P.P. Tung",
+  "browser": "./lib/browser.js",
   "bugs": {
     "url": "https://github.com/benpptung/util-asyncflow/issues"
   },
