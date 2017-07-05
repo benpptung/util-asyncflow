@@ -14,7 +14,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Last but not least, don't want to upgrade the IDE and environment for new syntax, because some very useful features in old IDE will be gone, or whatever reason.
 
-### new AsyncFlow([options, [context]) 
+### new AsyncFlow([options, [thisArg]]) 
 
 #### options:
 
@@ -31,9 +31,9 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 - halt: {Boolean}, default to false. If halt is true, the whole async flow won't run till .go() is called.
 
 
-#### context:
+#### thisArg:
 
-if context exits, all task functions in the flow will be bound to this `context`.
+if thisArg exits, all task functions in the flow will be bound to this `thisArg`.
 
 <b>example:</b> send context as second option
 
@@ -50,7 +50,7 @@ prototype.method = function(arg, cb) {
 ```
 All `method2`, `method3`, in the above `method` will be bound to `this` automatically.
 
-<b>example:</b> send context as first option with default options.
+or send `thisArg` as first arg with default options.
 
 `var flow = new AsyncFlow(this)`
 
@@ -62,6 +62,19 @@ Add an async function as a task following necessary arguments.
 ### .wait(fn, [art1, [art2...) 
 
 Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`.
+
+### .ctx(thisArg)
+
+update thisArg during this async calls flow
+
+```
+var flow = new Asyncflow();
+flow.task(this.method, arg1, arg2...)
+flow.ctx(this.db).wait(this.db.method)
+flow.run(cb)
+
+```
+
 
 ### .run([callback])
 
