@@ -14,9 +14,9 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Last but not least, don't want to upgrade the IDE and environment for new syntax, because some very useful features in old IDE will be gone, or whatever reason.
 
-### new AsyncFlow([options, [thisArg]]) 
+### new AsyncFlow([option, [thisArg]]) 
 
-#### options:
+#### option:
 
 - prepend: {Boolean}, default to false. Prepend previous async function result to the arguments of next async function like [`example 1`](#example-1)
 
