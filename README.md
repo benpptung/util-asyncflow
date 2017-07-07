@@ -12,7 +12,8 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Easy to connect multiple async flows and less callback hell, see [`example 5`](#example-5)
 
-- Last but not least, don't want to upgrade the IDE and environment for new syntax, because some very useful features in old IDE will be gone, or whatever reason.
+- Last but not least, don't want to upgrade the IDE or working environment for `async/await`, because whatever reason.
+
 
 ### new AsyncFlow([option, [thisArg]]) 
 
