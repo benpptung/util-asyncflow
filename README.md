@@ -12,7 +12,7 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Easy to connect multiple async flows and less callback hell, see [`example 5`](#example-5)
 
-- Last but not least, don't want to upgrade the IDE or working environment for `async/await`, because whatever reason.
+- Make codes clean and readable using async function and callback.
 
 
 ### new AsyncFlow([option, [thisArg]]) 
@@ -42,10 +42,13 @@ if thisArg exits, all task functions in the flow will be bound to this `thisArg`
 
 prototype.method = function(arg, cb) {
 
-  var flow = new AsyncFlow({output: 'rest'}, this);
-  flow.task(this.method2, arg);
-  flow.wait(this.method3)
-  flow.run(cb)
+  var fl = new AsyncFlow({output: 'rest'}, this);
+  
+  fl.task(this.method2, arg);
+  
+  fl.wait(this.method3)
+  
+  fl.run(cb)
 }
 
 ```
@@ -127,7 +130,7 @@ async.task(function(next) {
       console.log(`\n  ${src}`.green + ' was created.'.cyan );
       next(null, src)
     })
-    .on('error', err=> next(err))
+    .on('error', next)
     .end('hello world');
 
 });
