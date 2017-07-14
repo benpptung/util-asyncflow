@@ -94,6 +94,29 @@ Only works when option `halt ==  true`. Method .go() expects an Error as its fir
 All original results are stored in `async.results` in order.
 
 
+### .in(index)
+
+A shorthand to retrieve `results[index][0]`, so we can write something like following:
+
+```
+var flow = new AsyncFlow();
+
+flow.task(UserModel.findById, 1);  // #1 task
+
+flow.wait(TaskModel); // #2 task
+
+flow.task(next=> {
+  let user = flow.in(0); // get user find in the #1 task
+  
+  service.sendNotification(user, 'Task Created', next);
+})
+
+...
+
+
+```
+
+
 # Example 1
 
 prepend previous function result to next function arguments
