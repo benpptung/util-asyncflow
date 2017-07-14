@@ -1,3 +1,5 @@
+# util-asyncflow
+
 A thin and tiny utility to control async flows. 
 This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section.
 
@@ -14,6 +16,18 @@ See also [util-retry](https://www.npmjs.com/package/util-retry) - an async funct
 
 - Make codes clean and readable using async function and callback.
 
+
+
+# installation
+
+```
+npm install util-asyncflow
+```
+
+
+
+
+# API
 
 ### new AsyncFlow([option, [thisArg]]) 
 
@@ -61,7 +75,7 @@ or send `thisArg` as first arg with default options.
 
 ### .task(fn, [arg1,[arg2...)
 
-Add an async function as a task following necessary arguments. 
+Add an async function as a task following necessary arguments.
 
 ### .wait(fn, [art1, [art2...) 
 
