@@ -123,6 +123,7 @@ flow.task(next=> {
 
 ```
 
+If this async flow was triggered by `.go()`, `.in(0)` will return the argument sent by previous async flow.
 
 # Example 1
 
