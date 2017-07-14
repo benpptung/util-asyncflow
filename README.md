@@ -106,13 +106,20 @@ flow.task(UserModel.findById, 1);  // #1 task
 flow.wait(TaskModel); // #2 task
 
 flow.task(next=> {
-  let user = flow.in(0); // get user find in the #1 task
+  let user = flow.in(0); // get user found in #1 task
   
   service.sendNotification(user, 'Task Created', next);
 })
-
 ...
 
+```
+
+instead of 
+```
+flow.task(next=> {
+  let user = flow.results[0][0]; // get user found in #1 task
+  ...
+}
 
 ```
 
