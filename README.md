@@ -25,8 +25,6 @@ npm install util-asyncflow
 ```
 
 
-
-
 # API
 
 ### new AsyncFlow([option, [thisArg]]) 
