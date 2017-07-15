@@ -1,7 +1,7 @@
 # util-asyncflow
 
 A thin and tiny utility to control async flows. 
-This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section.
+This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section. Just 227 lines.
 
 See also [util-retry](https://www.npmjs.com/package/util-retry) - an async function retry flow utility
 
