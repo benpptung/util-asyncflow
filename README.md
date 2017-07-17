@@ -54,7 +54,7 @@ if thisArg exits, all task functions in the flow will be bound to this `thisArg`
 
 prototype.method = function(arg, cb) {
 
-  var fl = new AsyncFlow({output: 'rest'}, this);
+  var fl = new AsyncFlow(this);
   
   fl.task(this.method2, arg);
   
@@ -66,32 +66,44 @@ prototype.method = function(arg, cb) {
 ```
 All `method2`, `method3`, in the above `method` will be bound to `this` automatically.
 
-or send `thisArg` as first arg with default options.
-
-`var flow = new AsyncFlow(this)`
-
 
 ### .task(fn, [arg1,[arg2...)
 
-Add an async function as a task following necessary arguments.
+Add an async function as a task following necessary arguments. Shortname is `.t()`
+
+```
+fl.t(lookupGeo, req.connection.remoteAddress)
+
+fl.w((geo, done)=> done(null, Object.assign(profile, geo))
+...
+
+```
 
 ### .wait(fn, [art1, [art2...) 
 
-Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`.
+Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`. Shortname is `.w()`
 
 ### .ctx(thisArg)
 
 update thisArg during this async calls flow.
 Call `flow.ctx()`, will set `thisArg` to `null`.
 
+
+So, we can initiate flow with `this` context
+
 ```
-var flow = new Asyncflow();
+var flow = new Asyncflow(this);
 flow.task(this.method, arg1, arg2...)
+```
+
+switch to `this.db` if necessary
+```
 flow.ctx(this.db).wait(this.db.method)
 flow.run(cb)
 
 ```
 
+Shortname is `.c()`
 
 ### .run([callback])
 
@@ -99,7 +111,15 @@ Start this async functions flow with an optional `final callback`. This callback
 
 ### .go()
 
-Only works when option `halt ==  true`. Method .go() expects an Error as its first argument. When it is called, the halted async flow will start to run, so we can start another async flow without callback hell. See [`example 5`](#example-5)
+Trigger `new AsyncFlow({halt: true})` to go.
+
+`.go` expects an Error as its first argument. When it is called, the halted async flow will start to run, so we can start another async flow without callback hell.
+
+ 
+
+
+
+See [`example 5`](#example-5)
 
 ### property: results {Array}
 
