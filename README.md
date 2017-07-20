@@ -69,19 +69,11 @@ All `method2`, `method3`, in the above `method` will be bound to `this` automati
 
 ### .task(fn, [arg1,[arg2...)
 
-Add an async function as a task following necessary arguments. Shortname is `.t()`
-
-```
-fl.t(lookupGeo, req.connection.remoteAddress)
-
-fl.w((geo, done)=> done(null, Object.assign(profile, geo))
-...
-
-```
+Add an async function as a task following necessary arguments. ( shortname: `.t()` )
 
 ### .wait(fn, [art1, [art2...) 
 
-Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`. Shortname is `.w()`
+Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`. ( shortname: `.w()` )
 
 ### .ctx(thisArg)
 
@@ -156,6 +148,11 @@ flow.task(next=> {
 ```
 
 If this async flow was triggered by `.go()`, `.in(0)` will return the argument sent by previous async flow.
+
+##### todo
+
+Consider to extend this syntax to retrieve previous result.
+
 
 # Example 1
 
