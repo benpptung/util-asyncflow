@@ -319,52 +319,51 @@ From time to time, we have to stop and catch something to decide if go further o
 
 Call .go() directly
 ```
-'use strict';
 
-const Async = require('..');
-const inspect = require('util').inspect;
+///// flow 1
+var fl1 = new Async();
+fl1.task(mul3async, 2);
+fl1.wait(mul3async);
+fl1.run((err, res)=> {
 
-var pow2inputAfterLong = function(x, next) {
+  if (err) return console.error(err);
+
+  console.log(res);
+  console.log('==== end of fl1');
+
+
+  if (res > 18) return;
+  fl2.go(null, res);
+});
+
+
+///// flow 2
+var fl2 = new Async({halt: true});
+fl2.wait(mul3async);
+fl2.wait(mul3async);
+fl2.run((err, res)=> {
+  if (err) return console.error(err);
+
+  console.log();
+  console.log(res);
+  console.log('===== end of fl2');
+
+});
+
+
+
+/////////////////////
+function pow2inputAfterLong(x, next) {
   setTimeout(_=> {
     next(null, Math.pow(x, 2));
   }, 2000)
-};
+}
 
-var mul3inputAfterShort = function(x, next) {
+function mul3async(x, next) {
   setTimeout(_=> {
     next(null, x * 3);
   }, 1000)
-};
-
-var aflow1 = new Async();
-var aflow2 = new Async({halt: true});
-
-aflow1.task(mul3inputAfterShort, 2);
-
-aflow1.wait(mul3inputAfterShort);
-
-aflow1.run((err, res)=> {
-
-  if (err) return console.error(inspect(err));
-  console.log('==== end of aflow1');
-  console.log(res); // 18
-
-  if (res > 18) return;
-  aflow2.go(null, res); // send `res` to next async flow
-});
-
-aflow2.wait(mul3inputAfterShort);
-
-aflow2.wait(mul3inputAfterShort);
-
-aflow2.run((err, res)=> {
-  if (err) return console.error(inspect(err));
-
-  console.log();
-  console.log('===== end of aflow2');
-  console.log(res); // 162
-
-});
+}
 ```
 
 
@@ -372,51 +371,49 @@ aflow2.run((err, res)=> {
 Put .go as a callback
 
 ```
-'use strict';
 
-const Async = require('..');
-const inspect = require('util').inspect;
+///// flow 1
+var fl1 = new Async();
+fl1.task(mul3async, 2);
+fl1.wait(mul3async);
+fl1.run((err, res)=> {
 
-var pow2inputAfterLong = function(x, next) {
+  if (err) return console.error(err);
+
+  console.log(res);
+  console.log('==== end of fl1');
+
+
+  mul3async(2, fl2.go)
+});
+
+
+///// flow 2
+var fl2 = new Async({halt: true});
+fl2.wait(mul3async);
+fl2.wait(mul3async);
+fl2.run((err, res)=> {
+  if (err) return console.error(err);
+
+  console.log();
+  console.log(res);
+  console.log('===== end of fl2');
+
+});
+
+
+
+/////////////////////
+function pow2inputAfterLong(x, next) {
   setTimeout(_=> {
     next(null, Math.pow(x, 2));
   }, 2000)
-};
+}
 
-var mul3inputAfterShort = function(x, next) {
+function mul3async(x, next) {
   setTimeout(_=> {
     next(null, x * 3);
   }, 1000)
-};
-
-var aflow1 = new Async();
-var aflow2 = new Async({halt: true});
-
-aflow1.task(mul3inputAfterShort, 2);
-
-aflow1.wait(mul3inputAfterShort);
-
-aflow1.run((err, res)=> {
-
-  if (err) return console.error(inspect(err));
-  console.log('==== end of aflow1');
-  console.log(res);
-
-  if (res > 18) return;
-  pow2inputAfterLong(res, aflow2.go); // put .go as a callback.
-});
-
-aflow2.wait(mul3inputAfterShort);
-
-aflow2.wait(mul3inputAfterShort);
-
-aflow2.run((err, res)=> {
-  if (err) return console.error(inspect(err));
-
-  console.log();
-  console.log('===== end of aflow2');
-  console.log(res);
-
-});
+}
 ```
 
