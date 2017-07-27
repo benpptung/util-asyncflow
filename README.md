@@ -1,7 +1,7 @@
 # util-asyncflow
 
 A thin and tiny utility to control async flows. 
-This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section. Just 227 lines.
+This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section. Just 235 lines.
 
 See also [util-retry](https://www.npmjs.com/package/util-retry) - an async function retry flow utility
 
@@ -75,6 +75,37 @@ Add an async function as a task following necessary arguments. ( shortname: `.t(
 
 Add an async function as a task too, but it will wait for previous task's result as part of arguments. This behavior is similar to `seq`, `compose`, `waterfall` in `async`. ( shortname: `.w()` )
 
+### .send([arg1,[arg2...)
+
+send arguments to next Async flow or task.
+
+```
+var fl = new Async();
+
+fl.task(fn1);
+
+fl.task(fn2);
+
+fl.send(arg);
+
+fl.run(fl2.go)
+
+var fl2 = new Async({halt: true});
+
+fl2.wait(fn3) // fn3 will recieve `arg`
+
+```
+
+Both of the followings are the same
+
+```
+fl.task(fn, arg1, arg2, arg3);
+
+fl.send(arg1, arg2, arg3).wait(fn)
+```
+
+
+
 ### .ctx(thisArg)
 
 update thisArg during this async calls flow.
@@ -85,14 +116,15 @@ So, we can initiate flow with `this` context
 
 ```
 var flow = new Asyncflow(this);
+
 flow.task(this.method, arg1, arg2...)
 ```
 
 switch to `this.db` if necessary
 ```
 flow.ctx(this.db).wait(this.db.method)
-flow.run(cb)
 
+flow.run(cb)
 ```
 
 Shortname is `.c()`
