@@ -1,7 +1,7 @@
 # util-asyncflow
 
 A thin and tiny utility to control async flows. 
-This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section. Just 235 lines.
+This is similiar to [async](http://caolan.github.io/async/)'s `series`, `seq`, `compose`, `waterfall`... in control flow section. Just 237 lines.
 
 See also [util-retry](https://www.npmjs.com/package/util-retry) - an async function retry flow utility
 
@@ -148,6 +148,21 @@ See [`example 5`](#example-5)
 ### property: results {Array}
 
 All original results are stored in `async.results` in order.
+
+### property: length
+
+How many tasks remaining in the current flow. Same to flow.results.length.
+
+```
+
+fl.task(fn);
+
+fl.task(next=> {
+
+  var res = fl.in(fl.length - 1); // retrieve previous task result
+})
+
+```
 
 
 ### .in(index)
