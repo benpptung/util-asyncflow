@@ -196,9 +196,12 @@ flow.task(next=> {
 
 If this async flow was triggered by `.go()`, `.in(0)` will return the argument sent by previous async flow.
 
-##### todo
+```
+fl.in(-1)
 
-Consider to extend this syntax to retrieve previous result.
+fl.in(fl.length - 1)
+```
+Both of the above are same. 
 
 
 # Example 1
